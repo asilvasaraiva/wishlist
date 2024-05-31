@@ -3,8 +3,9 @@ package com.myapp.WishList.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.validation.constraints.NotBlank;
 
 
 @Document
@@ -12,8 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @Builder
 public class Product {
-    @Id
-    private String id;
+    @NotBlank(message = "Field can't be empty")
     private Long codProduct;
     private String name;
 }

@@ -23,4 +23,19 @@ public class wishListController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping(value = "/person/{loginID}/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Set<Product>> wishList(@PathVariable String loginID){
+        return ResponseEntity.ok().body(wishService.wishList(loginID));
+    }
+
+    @GetMapping(value = "/person/{loginID}/search/product/{codProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> checkProductExist(@PathVariable String loginID, @PathVariable Long codProduct ){
+        return ResponseEntity.ok().body(wishService.checkProductExist(loginID,codProduct));
+    }
+    @DeleteMapping(value = "/person/{loginID}/product/{codProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> removeProduct(@PathVariable String loginID, @PathVariable Long codProduct ){
+        wishService.removeProduct(loginID,codProduct);
+        return ResponseEntity.ok().build();
+    }
+
 }

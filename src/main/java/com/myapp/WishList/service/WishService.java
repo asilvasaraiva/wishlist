@@ -26,7 +26,6 @@ public class WishService {
     private final Integer MAX_QUEUE_SIZE=20;
 
 
-
     public void addProductToClientList(@NonNull RequestDTO req){
         log.info("Searching user with email: {} ", req.getLogin());
         Optional<User> user = getUserByEmail(req.getLogin());
@@ -61,5 +60,38 @@ public class WishService {
                 .login(req.getLogin())
                 .wishList(products)
                 .build();
+    }
+
+    public Set<Product> wishList(String email){
+        log.info("Retrieving wishlist related to email: {}",email);
+        User user = getUserByEmail(email).orElseThrow(NotFoundException::new);
+        log.info("Wishlist related to email: {} retrieved successfully",email);
+        return user.getWishList();
+    };
+
+    public boolean checkProductExist(String email, Long codProduct){
+        User user = getUserByEmail(email).orElseThrow(NotFoundException::new);
+        return returnIfExists(user.getWishList(), codProduct) != null;
+
+    }
+    @Transactional
+    public void removeProduct(String email, Long codProduct){
+        User user = getUserByEmail(email).orElseThrow(NotFoundException::new);
+        Product chosenProduct = returnIfExists(user.getWishList(),codProduct);
+        if(chosenProduct!=null){
+            user.getWishList().remove(chosenProduct);
+            userRepository.save(user);
+        }else{
+            throw new NotFoundException();
+        }
+    }
+
+    private Product returnIfExists(Set<Product> whishList, Long codProduct ){
+        for (Product p : whishList){
+            if(p.getCodProduct().equals(codProduct)){
+                return p;
+            }
+        }
+        return null;
     }
 }
