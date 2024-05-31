@@ -45,8 +45,8 @@ public class wishListController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sucesso ao retornar na lista de produtos do cliente")})
     @GetMapping(value = "/person/{loginID}/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Product>> wishList(@PathVariable String loginID){
-        return ResponseEntity.ok().body(wishService.wishList(loginID));
+    public ResponseEntity<Set<Product>> getWishList(@PathVariable String loginID){
+        return ResponseEntity.ok().body(wishService.getWishList(loginID));
     }
 
     @Operation(
