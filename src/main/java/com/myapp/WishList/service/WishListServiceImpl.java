@@ -16,7 +16,7 @@ import java.util.*;
 
 @Service
 @Slf4j
-public class WishServiceImpl implements WishService{
+public class WishListServiceImpl implements WishListService {
     @Autowired
     private UserRepository userRepository;
 

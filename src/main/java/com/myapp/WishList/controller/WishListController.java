@@ -2,25 +2,19 @@ package com.myapp.WishList.controller;
 
 import com.myapp.WishList.entity.Product;
 import com.myapp.WishList.entity.RequestDTO;
-import com.myapp.WishList.service.WishService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@Tag(name = "WishList", description = "Lista de Desejos")
-@RestController
 @RequestMapping("/wishlist")
-public class wishListController {
-
-    @Autowired
-    private WishService wishService;
+@Tag(name = "WishList", description = "Lista de Desejos")
+public interface WishListController {
 
     @Operation(
             summary = "Adiciona um produto na lista de desejos do cliente",
@@ -33,10 +27,7 @@ public class wishListController {
             @ApiResponse(responseCode = "403", description = "Quando a lista do cliente ja estiver cheia.")
     })
     @PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> addProductToClient(@RequestBody RequestDTO req){
-        wishService.addProductToClientList(req);
-        return ResponseEntity.ok().build();
-    }
+    ResponseEntity<Void> addProductToClient(@RequestBody RequestDTO req);
 
     @Operation(
             summary = "Retorna a lista de desejos do cliente",
@@ -45,9 +36,7 @@ public class wishListController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sucesso ao retornar na lista de produtos do cliente")})
     @GetMapping(value = "/person/{loginID}/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Product>> getWishList(@PathVariable String loginID){
-        return ResponseEntity.ok().body(wishService.getWishList(loginID));
-    }
+    ResponseEntity<Set<Product>> getWishList(@PathVariable String loginID);
 
     @Operation(
             summary = "Verifica se um determinado produto ja existe na lista de desejos do cliente",
@@ -57,9 +46,7 @@ public class wishListController {
             @ApiResponse(responseCode = "200", description = "Sucesso verificar a presença ou nao do produto na lista " +
                     "de desejos do cliente.")})
     @GetMapping(value = "/person/{loginID}/search/product/{codProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> checkProductExist(@PathVariable String loginID, @PathVariable Long codProduct ){
-        return ResponseEntity.ok().body(wishService.checkProductExist(loginID,codProduct));
-    }
+    ResponseEntity<Boolean> checkProductExist(@PathVariable String loginID, @PathVariable Long codProduct );
 
     @Operation(
             summary = "Realiza a remoção de um produto da lista de desejos do cliente",
@@ -71,9 +58,5 @@ public class wishListController {
             @ApiResponse(responseCode = "404", description = "Quando o produto informado não estiver presente na lista" +
                     " de desejos do cliente.")})
     @DeleteMapping(value = "/person/{loginID}/product/{codProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> removeProduct(@PathVariable String loginID, @PathVariable Long codProduct ){
-        wishService.removeProduct(loginID,codProduct);
-        return ResponseEntity.ok().build();
-    }
-
+    ResponseEntity<Void> removeProduct(@PathVariable String loginID, @PathVariable Long codProduct );
 }
