@@ -26,7 +26,7 @@ public interface WishListController {
             @ApiResponse(responseCode = "208", description = "Quando o produto informado ja existir na lista do cliente."),
             @ApiResponse(responseCode = "403", description = "Quando a lista do cliente ja estiver cheia.")
     })
-    @PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/insert", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Void> addProductToClient(@RequestBody RequestDTO req);
 
     @Operation(

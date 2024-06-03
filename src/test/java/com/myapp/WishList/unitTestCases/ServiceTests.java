@@ -1,11 +1,11 @@
-package com.myapp.WishList.unityTestCases;
+package com.myapp.WishList.unitTestCases;
 
 import com.myapp.WishList.entity.RequestDTO;
 import com.myapp.WishList.exception.FullWishListException;
 import com.myapp.WishList.exception.NotFoundException;
 import com.myapp.WishList.exception.ProductAlreadyExistException;
 import com.myapp.WishList.repository.UserRepository;
-import com.myapp.WishList.service.WishServiceImpl;
+import com.myapp.WishList.service.WishListServiceImpl;
 import com.myapp.WishList.utils.DataFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,10 +19,10 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class WishListTests {
+public class ServiceTests {
 
     @InjectMocks
-    private WishServiceImpl wishService;
+    private WishListServiceImpl wishService;
 
     @Mock
     private UserRepository userRepository;
