@@ -59,8 +59,19 @@ temos o seguinte link:
  http://localhost:8080/api/swagger-ui/index.html
 ```   
 
-# 
-Alexsandro da Silva Saraiva \
-alex_saraiva14@hotmail.com\
-2024
+## Visualização do banco de dados:
+Para este projeto utilizou-se o MongoDB Express, que é uma interface gráfica para gerenciar o MongoDB, facilitando a
+visualização e manipulação de dados no banco de dados. Para acessá-lo acessar a url abaixo
+
+``` 
+ http://localhost:8081
+``` 
+
+Após isso, inserir as credenciais de acesso dispostas abaixo para se autenticar.
+
+login:`admin`\
+senha:`pass`
+
+#
+
 
